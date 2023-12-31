@@ -3,6 +3,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/application/bloc/weather_bloc.dart';
 import 'package:weather_app/presentation/home/homeScreen.dart';
+import 'package:weather_app/presentation/splashScreen/splashscreen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
           //Loading Screen
           return const Scaffold(
             body: Center(
-              child: LinearProgressIndicator(),
+              child: SplashScreen(),
             ),
           );
         }

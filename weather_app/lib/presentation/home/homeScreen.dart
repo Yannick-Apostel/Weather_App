@@ -1,11 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/application/bloc/weather_bloc.dart';
 import 'package:weather_app/presentation/home/widget/detailButton.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,57 +69,66 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(color: Colors.transparent),
               ),
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'YOUR LOCATION',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    const Text(
-                      'Good Morning', //TODO: adjust to time
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Image.asset(
-                      'assets/images/0-1.png',
-                      width: 600,
-                      height: 400,
-                    ),
-                    Center(
-                      child: Text(
-                        '29°C',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 50,
-                            fontWeight: FontWeight.w900),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        'sunny',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Center(
-                      child: DetailButton(callback: () {
-                        debugPrint('button pressed');
-                      }),
-                    ),
-                  ]),
+            BlocBuilder<WeatherBloc, WeatherState>(
+              builder: (context, state) {
+                if (state is WeatherSucces) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${state.weather.areaName}',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'Good Morning', //TODO: adjust to time
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Image.asset(
+                            'assets/images/0-1.png',
+                            width: 600,
+                            height: 400,
+                          ),
+                          Center(
+                            child: Text(
+                              '${state.weather.temperature!.celsius!.round()}°C',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.w900),
+                            ),
+                          ),
+                          Center(
+                            child: Text(
+                              state.weather.weatherMain!,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Center(
+                            child: DetailButton(callback: () {
+                              debugPrint('button pressed');
+                            }),
+                          ),
+                        ]),
+                  );
+                }else{
+                  return Container(); // TODO: Failure 
+                }
+              },
             ),
           ]),
         ),
