@@ -104,10 +104,16 @@ class HomeScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                       ),
                     ),
-                    SizedBox(height: 20,),
-                    Center(child: DetailButton(callback: (){}),)
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Center(
+                      child: DetailButton(callback: () {
+                        debugPrint('button pressed');
+                      }),
+                    ),
                   ]),
-            )
+            ),
           ]),
         ),
       ),

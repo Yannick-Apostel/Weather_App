@@ -10,7 +10,7 @@ class DetailButton extends StatelessWidget{
    return InkResponse(
     child: Container(
       height: 40,
-      width: double.infinity/5,
+      width: (MediaQuery.of(context).size.width /2),
       decoration: BoxDecoration(
         color: Color.fromRGBO(1, 255, 220, 1),
         borderRadius: BorderRadius.circular(12)
