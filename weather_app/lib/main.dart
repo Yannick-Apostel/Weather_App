@@ -1,5 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/application/bloc/weather_bloc.dart';
 import 'package:weather_app/presentation/home/homeScreen.dart';
 
 void main() {
@@ -11,8 +13,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: const HomeScreen(),
+    return  MaterialApp(
+     home: FutureBuilder(
+      future: _determinePosition(), 
+      builder: (context, snap){
+        if(snap.hasData){
+          return BlocProvider<WeatherBloc>(
+            create: (context) => WeatherBloc()..add(CurrentWeather(snap.data as Position)),
+            child: const HomeScreen(),
+            );
+            
+        }else{
+          //Loading Screen
+          return const Scaffold(
+            body: Center(
+              child: LinearProgressIndicator(),
+            ),
+          );
+        }
+      }),
     );
   }
 }

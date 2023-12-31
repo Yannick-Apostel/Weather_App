@@ -10,7 +10,7 @@ sealed class WeatherEvent extends Equatable{
 class CurrentWeather extends WeatherEvent{
   final Position position;
 
-  const CurrentWeather({required this.position});
+   CurrentWeather( this.position);
    @override
   List<Object> get props => [position];
 }
