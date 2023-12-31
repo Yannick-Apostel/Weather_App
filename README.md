@@ -2,7 +2,11 @@
 
 ## Description
   simple weather app
-![Weather App Screenshot](screenshot.png)
+  <p align="center">
+    <img src="screenshot/homePage_lightmode.png"  height="400" width="190" />
+  
+</p>
+
 
 ## Features
 
