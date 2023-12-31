@@ -1,4 +1,4 @@
-# Weather App
+# Flutter - Weather App
 
 ## Description
   simple weather app
