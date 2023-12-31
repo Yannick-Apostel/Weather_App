@@ -13,6 +13,33 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Widget getWeatherIcon(int code) {
+    switch (code) {
+      case > 200 && <= 300: // Thunderstorm
+        return Image.asset('assets/images/1-1.png');
+        break;
+      case > 300 && < 400: // Drizzle
+        return Image.asset('assets/images/2-1.png');
+        break;
+      case >= 500 && < 600: // Rain
+        return Image.asset('assets/images/2-1.png');
+        break;
+      case >= 600 && < 700: //SNOW
+        return Image.asset('assets/images/3-1.png');
+        break;
+      case >= 700 && < 800:
+        return Image.asset('assets/images/2-1.png');
+        break;
+      case == 800: // clear 
+        return Image.asset('assets/images/0-1.png');
+      case > 800 && <= 804: // cloud 
+        return Image.asset('assets/images/0-2.png');
+        break;
+      default:
+        return Image.asset('assets/images/0-1.png');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,11 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold),
                           ),
-                          Image.asset(
-                            'assets/images/0-1.png',
-                            width: 600,
-                            height: 400,
-                          ),
+                          getWeatherIcon(state.weather.weatherConditionCode!),
                           Center(
                             child: Text(
                               '${state.weather.temperature!.celsius!.round()}°C',
@@ -125,8 +148,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ]),
                   );
-                }else{
-                  return Container(); // TODO: Failure 
+                } else {
+                  return Container(); // TODO: Failure
                 }
               },
             ),
