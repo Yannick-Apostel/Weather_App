@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/application/bloc/weather_bloc.dart';
+import 'package:weather_app/presentation/detailpage/detailpage.dart';
 import 'package:weather_app/presentation/home/homeScreen.dart';
 import 'package:weather_app/presentation/splashScreen/splashscreen.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         if(snap.hasData){
           return BlocProvider<WeatherBloc>(
             create: (context) => WeatherBloc()..add(CurrentWeather(snap.data as Position)),
-            child: const HomeScreen(),
+            child: const DetailPage(),
             );
             
         }else{
